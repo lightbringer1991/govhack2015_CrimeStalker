@@ -32,12 +32,15 @@ class ImageMarker extends AbstractMarker
 
 	pg.popStyle();
 
-        
-
-        if ( this.isInside(mouseX, mouseY, x, y) )
+        if ( this.isInside(mouseX, mouseY, x, y))
         {
           println("Hovering over: " + id);
-          //text(x, y, id);
+          String details = this.generateAccidentDetails(id);
+          pg.fill(color(255, 255, 255));
+          pg.rect(mouseX, mouseY, pg.textWidth(details) + 10 * 1.5f, 12 * 3 + 10);
+          pg.fill(color(0, 0, 0));
+          pg.text(details, mouseX, mouseY + 12);
+          
         }
     }
 
@@ -46,4 +49,16 @@ class ImageMarker extends AbstractMarker
     {
         return checkX > x && checkX < x + img.width && checkY > y && checkY < y + img.height;
     }
+    
+    private String generateAccidentDetails(String id) {
+      String query = "SELECT `ACCIDENT_DATE`, `ACCIDENT_TIME`, `ACCIDENT_TYPE`, `DCA_CODE` FROM `accidents` WHERE `ACCIDENT_NO`='" + id + "'";
+      dbConnection.query(query);
+
+      dbConnection.next();
+      String result = "Time: " + dbConnection.getString("ACCIDENT_DATE") + " " + dbConnection.getString("ACCIDENT_TIME") + "\n"
+                        + "Type: " + dbConnection.getString("ACCIDENT_TYPE") + "\n" 
+                        + "Nature: " + dbConnection.getString("DCA_CODE");
+      return result;
+    }
+
 }

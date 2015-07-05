@@ -148,7 +148,7 @@ void setup() {
      
      // Add our time slider
      timeSlider = cp5.addSlider("Time (weeks)")
-     .setPosition(width * 0.1f, height * 0.9f) // Slider starts 10% across, 90% down
+     .setPosition(width * 0.1f, height * 0.87f) // Slider starts 10% across, 90% down
      .setWidth( Math.round(width * 0.8f) )     // Slider is 80% width of the screen
      .setHeight(20)
      .setRange(0, 259)                         // Week number (260 weeks in 5 years)
